@@ -47,7 +47,7 @@ def main():
     # Botón para enviar el mensaje y mostrar la flor
     if st.button("Enviar Mensaje y Mostrar Flor"):
 
-        st.success(f"Mensaje enviado a {nombre}:")
+        st.write(f"Mensaje enviado:")
         #st.write(mensaje)
 
         # Generar y mostrar la imagen de la flor
