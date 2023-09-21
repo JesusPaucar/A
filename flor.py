@@ -24,16 +24,19 @@ def generate_flower_image(flower_size, petal_color, center_color):
 
     return img
 
+def enviar_mensaje():
+    nombre = st.text_input("Nombre", "Andrea")
+    mensaje = f"¡Hola {nombre}!\n\n"
+    mensaje += "En esta hermosa temporada de primavera, quiero enviarte esta flor virtual\n como un símbolo de la belleza y la renovación que la primavera trae consigo.\n\n"
+    mensaje += "Espero que disfrutes de esta estación llena de colores y alegría. \nSonríe, al igual que la primavera lo hace con el mundo.\n\n"
+    mensaje += "Con cariño,\n Jesus"
+
+    st.text("Mensaje:")
+    st.text(mensaje)
+
 def main():
-    st.title("Mensaje y Flor para una Chica Especial")
-
-    # Introducción y solicitud del nombre de la chica
-    st.write("¡Hola! ¿Quién es la chica especial a la que le quieres enviar un mensaje?")
-    nombre_de_la_chica = st.text_input("Nombre de la Chica", "")
-
-    # Área de texto para ingresar el mensaje
-    st.write("Escribe tu mensaje para ella:")
-    mensaje = st.text_area("Mensaje", "")
+    st.title("Regalo Primaveral Interactivo")
+    enviar_mensaje()
 
     # Configuración de la flor
     st.write("Configura la flor:")
@@ -43,11 +46,9 @@ def main():
 
     # Botón para enviar el mensaje y mostrar la flor
     if st.button("Enviar Mensaje y Mostrar Flor"):
-        if nombre_de_la_chica and mensaje:
-            st.success(f"Mensaje enviado a {nombre_de_la_chica}:")
+        if nombre and mensaje:
+            st.success(f"Mensaje enviado a {nombre}:")
             st.write(mensaje)
-        else:
-            st.warning("Por favor, ingresa el nombre de la chica y el mensaje antes de enviarlo.")
 
         # Generar y mostrar la imagen de la flor
         flower_image = generate_flower_image(flower_size, petal_color, center_color)
