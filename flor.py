@@ -30,8 +30,5 @@ def draw_flower(petal_count):
 # Generar una flor con 6 pétalos
 flower_image = draw_flower(6)
 
-# Guardar la imagen como "flower.png"
-flower_image.save("flower.png")
-
 # Mostrar la imagen
 flower_image.show()
