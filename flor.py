@@ -19,15 +19,6 @@ def generate_flower_image(flower_size, petal_color, center_color):
 def main():
     st.title("Mensaje y Flor para una Chica Especial")
 
-    # Configuración de la flor
-    petal_color = st.color_picker("Color de los pétalos", "#FF69B4", key="petal_color")
-    center_color = st.color_picker("Color del centro", "#FFD700", key="center_color")
-    flower_size = st.slider("Tamaño de la flor", 50, 300, 150)
-
-    # Generar y mostrar la flor SVG
-    flower_svg = generate_flower_image(flower_size, petal_color, center_color)
-    st.write(flower_svg, unsafe_allow_html=True)
-
     # Introducción y solicitud del nombre de la chica
     st.write("¡Hola! ¿Quién es la chica especial a la que le quieres enviar un mensaje?")
     nombre_de_la_chica = st.text_input("Nombre de la Chica", "")
@@ -36,14 +27,23 @@ def main():
     st.write("Escribe tu mensaje para ella:")
     mensaje = st.text_area("Mensaje", "")
 
-    # Botón para enviar el mensaje
-    if st.button("Enviar Mensaje"):
+    # Configuración de la flor
+    st.write("Configura la flor:")
+    petal_color = st.color_picker("Color de los pétalos", "#FF69B4")
+    center_color = st.color_picker("Color del centro", "#FFD700")
+    flower_size = st.slider("Tamaño de la flor", 50, 300, 150)
+
+    # Botón para enviar el mensaje y mostrar la flor
+    if st.button("Enviar Mensaje y Mostrar Flor"):
         if nombre_de_la_chica and mensaje:
             st.success(f"Mensaje enviado a {nombre_de_la_chica}:")
             st.write(mensaje)
         else:
             st.warning("Por favor, ingresa el nombre de la chica y el mensaje antes de enviarlo.")
 
+        # Mostrar la flor SVG
+        flower_svg = generate_flower_image(flower_size, petal_color, center_color)
+        st.write(flower_svg, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()
-
