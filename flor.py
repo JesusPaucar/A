@@ -1,15 +1,6 @@
 import streamlit as st
 
-def main():
-    st.title("Flor Interactiva")
-
-    # Configuración de los colores
-    petal_color = st.color_picker("Color de los pétalos", "#FF69B4")
-    center_color = st.color_picker("Color del centro", "#FFD700")
-
-    # Configurar el tamaño de la flor
-    flower_size = st.slider("Tamaño de la flor", 50, 300, 150)
-
+def generate_flower_image(flower_size, petal_color, center_color):
     # Crear el código SVG de la flor
     svg_code = f"""
     <svg height="{flower_size}" width="{flower_size}" xmlns="http://www.w3.org/2000/svg">
@@ -23,9 +14,35 @@ def main():
         <circle cx="{flower_size // 2}" cy="{(flower_size // 4) * 3}" r="{flower_size // 4}" fill="{petal_color}" />
     </svg>
     """
+    return svg_code
 
-    # Mostrar la flor SVG en Streamlit
-    st.write(svg_code, unsafe_allow_html=True)
+def main():
+    st.title("Mensaje y Flor para una Chica Especial")
+
+    # Configuración de la flor
+    petal_color = st.color_picker("Color de los pétalos", "#FF69B4")
+    center_color = st.color_picker("Color del centro", "#FFD700")
+    flower_size = st.slider("Tamaño de la flor", 50, 300, 150)
+
+    # Generar y mostrar la flor SVG
+    flower_svg = generate_flower_image(flower_size, petal_color, center_color)
+    st.write(flower_svg, unsafe_allow_html=True)
+
+    # Introducción y solicitud del nombre de la chica
+    st.write("¡Hola! ¿Quién es la chica especial a la que le quieres enviar un mensaje?")
+    nombre_de_la_chica = st.text_input("Nombre de la Chica", "")
+
+    # Área de texto para ingresar el mensaje
+    st.write("Escribe tu mensaje para ella:")
+    mensaje = st.text_area("Mensaje", "")
+
+    # Botón para enviar el mensaje
+    if st.button("Enviar Mensaje"):
+        if nombre_de_la_chica and mensaje:
+            st.success(f"Mensaje enviado a {nombre_de_la_chica}:")
+            st.write(mensaje)
+        else:
+            st.warning("Por favor, ingresa el nombre de la chica y el mensaje antes de enviarlo.")
 
 if __name__ == "__main__":
     main()
