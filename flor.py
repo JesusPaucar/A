@@ -20,8 +20,8 @@ def main():
     st.title("Mensaje y Flor para una Chica Especial")
 
     # Configuración de la flor
-    petal_color = st.color_picker("Color de los pétalos", "#FF69B4")
-    center_color = st.color_picker("Color del centro", "#FFD700")
+    petal_color = st.color_picker("Color de los pétalos", "#FF69B4", key="petal_color")
+    center_color = st.color_picker("Color del centro", "#FFD700", key="center_color")
     flower_size = st.slider("Tamaño de la flor", 50, 300, 150)
 
     # Generar y mostrar la flor SVG
@@ -46,3 +46,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
