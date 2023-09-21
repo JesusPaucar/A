@@ -1,19 +1,24 @@
 import streamlit as st
+import svgwrite
 
 def generate_flower_image(flower_size, petal_color, center_color):
-    # Crear el código SVG de la flor
-    svg_code = f"""
-    <svg height="{flower_size}" width="{flower_size}" xmlns="http://www.w3.org/2000/svg">
-        <!-- Centro de la flor -->
-        <circle cx="{flower_size // 2}" cy="{flower_size // 2}" r="{flower_size // 10}" fill="{center_color}" />
-
-        <!-- Pétalos de la flor -->
-        <circle cx="{flower_size // 2}" cy="{flower_size // 4}" r="{flower_size // 4}" fill="{petal_color}" />
-        <circle cx="{flower_size // 4}" cy="{flower_size // 2}" r="{flower_size // 4}" fill="{petal_color}" />
-        <circle cx="{(flower_size // 4) * 3}" cy="{flower_size // 2}" r="{flower_size // 4}" fill="{petal_color}" />
-        <circle cx="{flower_size // 2}" cy="{(flower_size // 4) * 3}" r="{flower_size // 4}" fill="{petal_color}" />
-    </svg>
-    """
+    # Crear un objeto SVG
+    dwg = svgwrite.Drawing(size=(flower_size, flower_size))
+    
+    # Dibujar el centro de la flor
+    dwg.add(svgwrite.shapes.Circle(center=(flower_size/2, flower_size/2), r=flower_size/10, fill=center_color))
+    
+    # Dibujar los pétalos de la flor
+    petal_radius = flower_size / 4
+    petal_positions = [(flower_size/2, flower_size/4), (flower_size/4, flower_size/2),
+                       ((flower_size/4)*3, flower_size/2), (flower_size/2, (flower_size/4)*3)]
+    
+    for pos in petal_positions:
+        dwg.add(svgwrite.shapes.Circle(center=pos, r=petal_radius, fill=petal_color))
+    
+    # Obtener el código SVG como cadena
+    svg_code = dwg.tostring()
+    
     return svg_code
 
 def main():
@@ -43,7 +48,7 @@ def main():
 
         # Mostrar la flor SVG
         flower_svg = generate_flower_image(flower_size, petal_color, center_color)
-        st.write(flower_svg, unsafe_allow_html=True)
+        st.image(flower_svg, caption="Flor para una Chica Especial", use_column_width=True)
 
 if __name__ == "__main__":
     main()
